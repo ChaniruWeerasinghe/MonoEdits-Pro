@@ -60,7 +60,7 @@ export default function SignatureTool() {
 
       <Header />
 
-      <main className="site-container" style={{ paddingTop: 140, paddingBottom: 80, flex: 1 }}>
+      <main className="site-container" style={{ paddingTop: 140, paddingBottom: 80, flex: 1, display: 'flex', flexDirection: 'column' }}>
         <div style={{ marginBottom: 48 }}><StepIndicator currentStep={step} /></div>
 
         {step === 0 && <PDFUploader onFileLoaded={handlePDFLoaded} />}
@@ -86,7 +86,7 @@ export default function SignatureTool() {
         )}
 
         {step === 3 && (
-          <div className="animate-fadeup flex flex-col items-center gap-8 text-center" style={{ paddingTop: 24 }}>
+          <div className="animate-fadeup flex flex-col items-center justify-center gap-8 text-center" style={{ flex: 1 }}>
             {isGenerating ? (
               <>
                 <div style={{ width: 72, height: 72, borderRadius: '50%', border: '4px solid rgba(13,148,136,0.15)', borderTopColor: '#0d9488', animation: 'spin 0.9s linear infinite' }} />
