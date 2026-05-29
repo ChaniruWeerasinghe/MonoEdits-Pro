@@ -7,7 +7,7 @@ export default function Logo({ size = 'md' }) {
       <img
         src="/favicon.png"
         alt="MonoEdits logo"
-        style={{ width: s.box, height: s.box, objectFit: 'contain', filter: 'invert(1) brightness(2) sepia(1) hue-rotate(130deg) saturate(4)', flexShrink: 0 }}
+        style={{ width: s.box, height: s.box, objectFit: 'contain', flexShrink: 0 }}
       />
       <div>
         <span className="gradient-text" style={{ fontSize: s.fs, fontWeight: 800, lineHeight: 1, display: 'block' }}>MonoEdits</span>
