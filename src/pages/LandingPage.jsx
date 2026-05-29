@@ -234,7 +234,7 @@ export default function LandingPage() {
           </div>
 
           {/* ── Tabs ── */}
-          <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 8, marginBottom: 40 }}>
+          <div className="flex md:justify-center overflow-x-auto" style={{ gap: 8, marginBottom: 40, paddingBottom: 8, WebkitOverflowScrolling: 'touch' }}>
             {FEATURES.map((f) => (
               <button
                 key={f.id}
@@ -249,6 +249,7 @@ export default function LandingPage() {
                   fontWeight: 600,
                   display: 'flex', alignItems: 'center', gap: 6,
                   cursor: 'pointer', transition: 'all 0.2s',
+                  flexShrink: 0,
                 }}
               >
                 {f.name}
