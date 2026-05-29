@@ -7,7 +7,7 @@ const STEPS = [
 
 export default function StepIndicator({ currentStep }) {
   return (
-    <div className="flex items-center w-full max-w-xl mx-auto px-2" role="navigation" aria-label="Steps">
+    <div className="flex items-center w-full max-w-3xl mx-auto px-2" role="navigation" aria-label="Steps">
       {STEPS.map((step, index) => {
         const state =
           index < currentStep ? 'done' : index === currentStep ? 'active' : 'pending';

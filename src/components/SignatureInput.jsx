@@ -35,7 +35,7 @@ export default function SignatureInput({ onComplete }) {
   };
 
   return (
-    <div className="animate-fadeup flex flex-col gap-6 w-full max-w-xl mx-auto">
+    <div className="animate-fadeup flex flex-col gap-6 w-full max-w-3xl mx-auto">
       <div className="text-center">
         <h2 className="text-xl font-bold text-slate-100">Create your signature</h2>
         <p className="text-sm text-slate-400 mt-1">Draw it freehand or upload an image of your existing signature.</p>

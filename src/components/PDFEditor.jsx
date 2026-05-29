@@ -123,7 +123,7 @@ export default function PDFEditor({ pdfBytes, signatureDataUrl, onConfirm }) {
         <div
           className="pdf-editor-wrapper"
           style={{
-            display: 'block',
+            display: 'inline-block',
             visibility: isRendering ? 'hidden' : 'visible',
             position: 'relative',
           }}

@@ -42,7 +42,7 @@ export default function PDFUploader({ onFileLoaded }) {
   const handleInputChange = (e) => processFile(e.target.files?.[0]);
 
   return (
-    <div className="animate-fadeup flex flex-col items-center gap-8 w-full max-w-xl mx-auto">
+    <div className="animate-fadeup flex flex-col items-center gap-8 w-full max-w-3xl mx-auto">
       {/* Icon */}
       <div className="flex flex-col items-center gap-3 text-center">
         <div
