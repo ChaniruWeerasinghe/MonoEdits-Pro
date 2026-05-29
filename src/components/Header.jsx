@@ -86,17 +86,18 @@ export default function Header() {
         style={{
           position: 'fixed',
           top: 0, left: 0, bottom: 0,
-          width: '280px',
-          backgroundColor: 'rgba(2, 6, 23, 0.85)',
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
-          borderRight: '1px solid rgba(255,255,255,0.05)',
+          width: '300px',
+          background: 'linear-gradient(135deg, rgba(2,6,23,0.4) 0%, rgba(15,23,42,0.6) 100%)',
+          backdropFilter: 'blur(24px)',
+          WebkitBackdropFilter: 'blur(24px)',
+          borderRight: '1px solid rgba(255,255,255,0.08)',
+          boxShadow: '4px 0 24px rgba(0,0,0,0.5)',
           zIndex: 1001,
           transform: isMobileMenuOpen ? 'translateX(0)' : 'translateX(-100%)',
-          transition: 'transform 0.3s ease',
+          transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
           display: 'flex',
           flexDirection: 'column',
-          padding: '24px',
+          padding: '28px 24px',
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
@@ -111,11 +112,45 @@ export default function Header() {
           </button>
         </div>
         
-        <nav style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-          <a href="/#tools" style={{ color: '#e2e8f0', fontSize: '1.1rem', fontWeight: 500, textDecoration: 'none' }} onClick={(e) => { e.preventDefault(); handleNav('tools'); }}>Tools</a>
-          <a href="/#how-it-works" style={{ color: '#e2e8f0', fontSize: '1.1rem', fontWeight: 500, textDecoration: 'none' }} onClick={(e) => { e.preventDefault(); handleNav('how-it-works'); }}>How it Works</a>
-          <a href="/#why-monoedits" style={{ color: '#e2e8f0', fontSize: '1.1rem', fontWeight: 500, textDecoration: 'none' }} onClick={(e) => { e.preventDefault(); handleNav('why-monoedits'); }}>Benefits</a>
+        <nav style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '10px' }}>
+          {[
+            { id: 'tools', label: 'Tools', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2dd4bf" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> },
+            { id: 'how-it-works', label: 'How it Works', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2dd4bf" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> },
+            { id: 'why-monoedits', label: 'Benefits', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2dd4bf" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> },
+          ].map(link => (
+            <a 
+              key={link.id}
+              href={`/#${link.id}`} 
+              onClick={(e) => { e.preventDefault(); handleNav(link.id); }}
+              style={{ 
+                display: 'flex', alignItems: 'center', gap: '14px',
+                color: '#f8fafc', fontSize: '1.05rem', fontWeight: 600, textDecoration: 'none',
+                padding: '14px 18px', borderRadius: '14px',
+                background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '32px', height: '32px', borderRadius: '10px', background: 'rgba(45,212,191,0.1)' }}>
+                {link.icon}
+              </div>
+              {link.label}
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: 'auto' }}><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+          ))}
         </nav>
+
+        <div style={{ marginTop: '32px' }}>
+          <button
+            className="btn-primary"
+            onClick={() => handleNav('signatures')}
+            style={{ width: '100%', justifyContent: 'center', padding: '14px 20px', fontSize: '1rem', boxShadow: '0 8px 20px -4px rgba(13, 148, 136, 0.4)' }}
+          >
+            Start for Free
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: '8px' }}>
+              <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+            </svg>
+          </button>
+        </div>
 
         <div style={{ marginTop: 'auto', paddingTop: '24px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
           <p style={{ fontSize: '0.75rem', color: '#94a3b8', marginBottom: '16px' }}>Developed by Chaniru Weerasinghe</p>
