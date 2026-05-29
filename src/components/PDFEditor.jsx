@@ -56,7 +56,6 @@ export default function PDFEditor({ pdfBytes, signatureDataUrl, onConfirm }) {
       return;
     }
     onConfirm({ signaturesByPage, canvasDims });
-    addToast('Signatures placed! Generating your signed PDF…', 'info');
   };
 
   return (

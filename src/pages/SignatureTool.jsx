@@ -37,7 +37,7 @@ export default function SignatureTool() {
     try {
       const result = await mergePDF({ pdfBytes: pdfFile.bytes, sigDataUrl: signatureUrl, signaturesByPage, canvasDims });
       setSignedPdfBytes(result); setDownloadReady(true);
-      addToast('Signed PDF ready!', 'success', 5000);
+      addToast('Signatures placed & PDF ready!', 'success', 5000);
     } catch (err) {
       addToast(`Merge failed: ${err.message}`, 'error'); setStep(2);
     } finally { setIsGenerating(false); }
