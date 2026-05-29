@@ -87,7 +87,9 @@ export default function Header() {
           position: 'fixed',
           top: 0, left: 0, bottom: 0,
           width: '280px',
-          backgroundColor: '#020617', // Match app background
+          backgroundColor: 'rgba(2, 6, 23, 0.85)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
           borderRight: '1px solid rgba(255,255,255,0.05)',
           zIndex: 1001,
           transform: isMobileMenuOpen ? 'translateX(0)' : 'translateX(-100%)',
