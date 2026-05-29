@@ -60,17 +60,17 @@ export default function SignatureTool() {
 
       <Header />
 
-      <main className="site-container" style={{ paddingTop: 140, paddingBottom: 80, flex: 1, display: 'flex', flexDirection: 'column' }}>
+      <main className="site-container" style={{ paddingTop: 140, paddingBottom: 80, flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <div style={{ marginBottom: 48 }}><StepIndicator currentStep={step} /></div>
 
         {step === 0 && (
-          <div className="flex flex-col items-center justify-center flex-1 w-full animate-fadeup">
+          <div className="flex flex-col items-center gap-8 w-full animate-fadeup">
             <PDFUploader onFileLoaded={handlePDFLoaded} />
           </div>
         )}
 
         {step === 1 && (
-          <div className="flex flex-col justify-center flex-1 gap-6 w-full animate-fadeup">
+          <div className="flex flex-col gap-6 w-full animate-fadeup">
             <SignatureInput onComplete={handleSignatureComplete} />
             <button id="back-to-upload-btn" className="btn-ghost" onClick={() => setStep(0)} style={{ alignSelf: 'flex-start' }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
@@ -80,7 +80,7 @@ export default function SignatureTool() {
         )}
 
         {step === 2 && (
-          <div className="flex flex-col flex-1 gap-6 w-full animate-fadeup">
+          <div className="flex flex-col gap-6 w-full animate-fadeup">
             <PDFEditor pdfBytes={pdfFile?.bytes} signatureDataUrl={signatureUrl} onConfirm={handlePlacementConfirm} />
             <button id="back-to-sign-btn" className="btn-ghost" onClick={() => setStep(1)} style={{ alignSelf: 'flex-start' }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
