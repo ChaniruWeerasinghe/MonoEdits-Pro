@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Logo from './Logo';
 
@@ -7,7 +7,19 @@ export default function Header() {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [githubDropdownOpen, setGithubDropdownOpen] = useState(false);
-  
+  const githubDropdownRef = useRef(null);
+
+  useEffect(() => {
+    if (!githubDropdownOpen) return;
+    const handleClickOutside = (e) => {
+      if (githubDropdownRef.current && !githubDropdownRef.current.contains(e.target)) {
+        setGithubDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [githubDropdownOpen]);
+
   const handleNav = (action) => {
     setIsMobileMenuOpen(false); // Close menu on navigation
     if (action === 'home') {
@@ -168,7 +180,7 @@ export default function Header() {
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
             </a>
             {/* Github with Dropdown */}
-            <div style={{ position: 'relative' }}>
+            <div ref={githubDropdownRef} style={{ position: 'relative' }}>
               <button 
                 style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '38px', height: '38px', borderRadius: '10px', background: githubDropdownOpen ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)', color: '#94a3b8', transition: 'all 0.2s', boxShadow: '0 2px 8px rgba(0,0,0,0.2)', cursor: 'pointer', padding: 0 }}
                 onClick={() => setGithubDropdownOpen(!githubDropdownOpen)}
