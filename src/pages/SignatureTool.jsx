@@ -31,11 +31,11 @@ export default function SignatureTool() {
   const handlePDFLoaded         = useCallback((f)  => { setPdfFile(f); setStep(1); }, []);
   const handleSignatureComplete = useCallback((url) => { setSignatureUrl(url); setStep(2); }, []);
 
-  const handlePlacementConfirm = useCallback(async ({ placement, canvasDims, pageIndex }) => {
+  const handlePlacementConfirm = useCallback(async ({ signaturesByPage, canvasDims }) => {
     if (!pdfFile?.bytes || !signatureUrl) { addToast('Missing PDF or signature.', 'error'); return; }
     setIsGenerating(true); setStep(3);
     try {
-      const result = await mergePDF({ pdfBytes: pdfFile.bytes, sigDataUrl: signatureUrl, pageIndex, placement, canvasDims });
+      const result = await mergePDF({ pdfBytes: pdfFile.bytes, sigDataUrl: signatureUrl, signaturesByPage, canvasDims });
       setSignedPdfBytes(result); setDownloadReady(true);
       addToast('Signed PDF ready!', 'success', 5000);
     } catch (err) {
