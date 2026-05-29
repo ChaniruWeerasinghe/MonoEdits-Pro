@@ -60,7 +60,7 @@ export default function SignatureTool() {
 
       <Header />
 
-      <main className="site-container" style={{ paddingTop: 140, paddingBottom: 80, flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+      <main className="site-container" style={{ paddingTop: 140, paddingBottom: 80, minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <div style={{ marginBottom: 48 }}><StepIndicator currentStep={step} /></div>
 
         {step === 0 && (

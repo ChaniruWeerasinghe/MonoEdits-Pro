@@ -780,9 +780,21 @@ header .social-link:hover .social-dropdown {
 
 @media (max-width: 768px) {
   .header-nav {
-    display: none;
+    display: none !important;
   }
   .menu-toggle {
-    display: block;
+    display: flex !important;
+  }
+  .how-connector {
+    display: none !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .menu-toggle {
+    display: none !important;
+  }
+  .header-nav {
+    display: flex !important;
   }
 }

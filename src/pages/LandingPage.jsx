@@ -152,7 +152,7 @@ export default function LandingPage() {
 
       {/* ── Hero ── */}
       <section style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', paddingTop: 'clamp(140px, 18vh, 180px)', paddingBottom: 'clamp(60px, 10vh, 120px)' }}>
-        <div className="site-container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'clamp(40px,6vw,100px)', alignItems: 'center', width: '100%' }}>
+        <div className="site-container grid grid-cols-1 lg:grid-cols-2" style={{ gap: 'clamp(40px,6vw,100px)', alignItems: 'center', width: '100%' }}>
 
           {/* LEFT */}
           <div className="animate-fadeup" style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
