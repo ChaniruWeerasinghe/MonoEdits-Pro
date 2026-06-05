@@ -79,8 +79,6 @@ export function usePDFRenderer(pdfBytes) {
 
         canvas.width = viewport.width;
         canvas.height = viewport.height;
-        canvas.style.width = `${cssWidth}px`;
-        canvas.style.height = `${cssHeight}px`;
 
         setCanvasDims({ width: cssWidth, height: cssHeight });
 

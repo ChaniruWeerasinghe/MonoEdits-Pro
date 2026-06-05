@@ -62,7 +62,7 @@ export const FEATURES = [
     id: 'merge',
     name: 'Merge PDFs',
     desc: 'Combine multiple PDF files into a single organized document.',
-    active: false,
+    active: true,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
@@ -89,7 +89,7 @@ export const FEATURES = [
     id: 'forms',
     name: 'Fill PDF Forms',
     desc: 'Complete interactive PDF form fields directly in your browser.',
-    active: false,
+    active: true,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />

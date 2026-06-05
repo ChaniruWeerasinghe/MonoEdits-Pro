@@ -3,45 +3,62 @@ import { addToast } from './Notification';
 
 const MAX_FILE_SIZE_MB = 50;
 
-export default function PDFUploader({ onFileLoaded }) {
+export default function MultiPDFUploader({ onFilesLoaded }) {
   const inputRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
 
-  const processFile = useCallback((file) => {
-    if (!file) return;
+  const processFiles = useCallback(async (rawFiles) => {
+    if (!rawFiles || rawFiles.length === 0) return;
 
-    if (file.type !== 'application/pdf') {
-      addToast('Only PDF files are accepted.', 'error');
-      return;
+    const files = Array.from(rawFiles);
+    const validFiles = [];
+    let hasError = false;
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+
+      if (file.type !== 'application/pdf') {
+        addToast(`"${file.name}" is not a PDF file.`, 'error');
+        hasError = true;
+        continue;
+      }
+
+      const sizeMB = file.size / (1024 * 1024);
+      if (sizeMB > MAX_FILE_SIZE_MB) {
+        addToast(`"${file.name}" is too large. Maximum allowed size is ${MAX_FILE_SIZE_MB} MB.`, 'error');
+        hasError = true;
+        continue;
+      }
+
+      const bytes = await file.arrayBuffer();
+      validFiles.push({
+        id: crypto.randomUUID(),
+        file,
+        name: file.name,
+        size: file.size,
+        bytes,
+      });
     }
 
-    const sizeMB = file.size / (1024 * 1024);
-    if (sizeMB > MAX_FILE_SIZE_MB) {
-      addToast(`File too large. Maximum allowed size is ${MAX_FILE_SIZE_MB} MB.`, 'error');
-      return;
+    if (validFiles.length > 0) {
+      onFilesLoaded(validFiles);
+      if (!hasError) {
+        addToast(`Successfully loaded ${validFiles.length} file(s).`, 'success');
+      }
     }
-
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      onFileLoaded({ bytes: e.target.result, name: file.name });
-      addToast(`"${file.name}" loaded successfully.`, 'success');
-    };
-    reader.onerror = () => addToast('Failed to read the file. Please try again.', 'error');
-    reader.readAsArrayBuffer(file);
-  }, [onFileLoaded]);
+  }, [onFilesLoaded]);
 
   const handleDrop = useCallback((e) => {
     e.preventDefault();
     setIsDragging(false);
-    const file = e.dataTransfer.files?.[0];
-    processFile(file);
-  }, [processFile]);
+    processFiles(e.dataTransfer.files);
+  }, [processFiles]);
 
   const handleDragOver = (e) => { e.preventDefault(); setIsDragging(true); };
   const handleDragLeave = () => setIsDragging(false);
   const handleInputChange = (e) => {
-    processFile(e.target.files?.[0]);
-    e.target.value = null; // Reset input so the same file can be selected again
+    processFiles(e.target.files);
+    if (inputRef.current) inputRef.current.value = ''; // Reset input so same file can be selected again
   };
 
   return (
@@ -64,24 +81,24 @@ export default function PDFUploader({ onFileLoaded }) {
           </svg>
         </div>
         <div>
-          <h2 className="text-xl font-bold text-slate-100">Upload your PDF</h2>
+          <h2 className="text-xl font-bold text-slate-100">Upload your PDFs</h2>
           <p className="text-sm text-slate-400 mt-1">
-            Your file never leaves your device — processed entirely in the browser.
+            Select multiple files to combine. Everything happens locally.
           </p>
         </div>
       </div>
 
       {/* Drop zone */}
       <div
-        id="pdf-dropzone"
-        className={`drop-zone w-full p-6 md:p-12 flex flex-col items-center gap-4 ${isDragging ? 'dragging' : ''}`}
+        id="multi-pdf-dropzone"
+        className={`drop-zone w-full p-12 flex flex-col items-center gap-4 ${isDragging ? 'dragging' : ''}`}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onClick={() => inputRef.current?.click()}
         role="button"
         tabIndex={0}
-        aria-label="Drop PDF here or click to browse"
+        aria-label="Drop PDFs here or click to browse"
         onKeyDown={(e) => e.key === 'Enter' && inputRef.current?.click()}
       >
         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(13,148,136,0.6)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -92,7 +109,7 @@ export default function PDFUploader({ onFileLoaded }) {
 
         <div className="text-center">
           <p className="text-slate-300 font-medium">
-            Drag & drop your PDF here
+            Drag & drop your PDFs here
           </p>
           <p className="text-slate-500 text-sm mt-1">
             or <span className="text-teal-400 font-semibold">click to browse</span>
@@ -109,14 +126,15 @@ export default function PDFUploader({ onFileLoaded }) {
             color: '#64748b',
           }}
         >
-          PDF files only &mdash; up to {MAX_FILE_SIZE_MB} MB
+          PDF files only &mdash; up to {MAX_FILE_SIZE_MB} MB each
         </div>
 
         <input
           ref={inputRef}
-          id="pdf-file-input"
+          id="multi-pdf-file-input"
           type="file"
           accept="application/pdf"
+          multiple
           onChange={handleInputChange}
           style={{ display: 'none' }}
           aria-hidden="true"

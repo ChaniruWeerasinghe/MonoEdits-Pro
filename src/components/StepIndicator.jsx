@@ -1,19 +1,19 @@
-const STEPS = [
+const DEFAULT_STEPS = [
   { label: 'Upload PDF' },
   { label: 'Signature' },
   { label: 'Position' },
   { label: 'Download' },
 ];
 
-export default function StepIndicator({ currentStep }) {
+export default function StepIndicator({ currentStep, steps = DEFAULT_STEPS }) {
   return (
     <div className="flex items-center w-full max-w-3xl mx-auto px-2" role="navigation" aria-label="Steps">
-      {STEPS.map((step, index) => {
+      {steps.map((step, index) => {
         const state =
           index < currentStep ? 'done' : index === currentStep ? 'active' : 'pending';
 
         return (
-          <div key={index} className="flex items-center" style={{ flex: index < STEPS.length - 1 ? '1' : 'none' }}>
+          <div key={index} className="flex items-center" style={{ flex: index < steps.length - 1 ? '1' : 'none' }}>
             {/* Dot + Label */}
             <div className="flex flex-col items-center gap-1.5">
               <div className={`step-dot ${state}`} aria-current={state === 'active' ? 'step' : undefined}>
@@ -40,7 +40,7 @@ export default function StepIndicator({ currentStep }) {
             </div>
 
             {/* Connector line */}
-            {index < STEPS.length - 1 && (
+            {index < steps.length - 1 && (
               <div className="step-line mx-2 mb-5">
                 <div
                   className="step-line-fill"
